@@ -1,5 +1,6 @@
 # encoding: utf-8
 from django.db import models
+from django.urls import reverse
 
 
 class Picture(models.Model):
@@ -15,9 +16,8 @@ class Picture(models.Model):
     def __str__(self):
         return self.file.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('upload-new', )
+        return reverse('upload-new', args=(self.slug,))
 
     def save(self, *args, **kwargs):
         self.slug = self.file.name
